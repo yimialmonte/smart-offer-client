@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Button } from 'reactstrap';
 
 const App = () => (
-  <div>
-    <h1>Hello World</h1>
+  <div className="container">
+    <Button color="danger">Danger!</Button>
   </div>
 );
 
