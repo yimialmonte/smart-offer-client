@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Button } from 'reactstrap';
+import Header from './components/Header';
 
 const App = () => (
-  <div className="container">
-    <Button color="danger">Danger!</Button>
+  <div>
+    <Header />
   </div>
 );
 
