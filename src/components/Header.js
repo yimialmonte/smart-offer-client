@@ -7,6 +7,9 @@ import {
   NavItem,
   Collapse,
   Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
 } from 'reactstrap';
 
 class Header extends Component {
@@ -14,16 +17,22 @@ class Header extends Component {
     super(props);
     this.state = {
       isNavOpen: false,
+      isModalOpen: false,
     };
     this.toggleNav = this.toggleNav.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   toggleNav() {
     this.setState((prevState) => ({ isNavOpen: !prevState.isNavOpen }));
   }
 
+  toggleModal() {
+    this.setState((prevState) => ({ isModalOpen: !prevState.isModalOpen }));
+  }
+
   render() {
-    const { isNavOpen } = this.state;
+    const { isNavOpen, isModalOpen } = this.state;
     return (
       <>
         <Navbar style={{ backgroundColor: '#f1f1f1' }} expand="md">
@@ -61,12 +70,22 @@ class Header extends Component {
               </Nav>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <Button outline>Login</Button>
+                  <Button outline onClick={this.toggleModal}>
+                    Login
+                  </Button>
                 </NavItem>
               </Nav>
             </Collapse>
           </div>
         </Navbar>
+        <Modal isOpen={isModalOpen} toggle={this.toggleModal}>
+          <ModalHeader toggle={this.toggleModal}>
+            <h3>Login</h3>
+          </ModalHeader>
+          <ModalBody>
+            <p>Body</p>
+          </ModalBody>
+        </Modal>
       </>
     );
   }
