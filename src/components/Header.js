@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import {
   Nav,
   Navbar,
@@ -14,11 +15,7 @@ import {
   Label,
 } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import {
-  required,
-  minLength,
-  validEmail,
-} from '../../validations/index';
+import { required, minLength, validEmail } from '../../validations/index';
 
 class Header extends Component {
   constructor(props) {
@@ -42,8 +39,19 @@ class Header extends Component {
 
   hanldeSubmit(values) {
     const { name, email, password } = values;
-    alert(`${name} ${email} ${password}`);
-    this.toggleModal();
+    axios
+      .post('http://localhost:3000/v1/users/register', {
+        name,
+        email,
+        password,
+      })
+      .then((response) => {
+        alert(JSON.stringify(response.data));
+        this.toggleModal();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -161,7 +169,8 @@ class Header extends Component {
                     show="touched"
                     messages={{
                       required: 'The Password is required',
-                      minLength: 'The password mus be greater than six characters',
+                      minLength:
+                        'The password must be greater than six characters',
                     }}
                   />
                 </FormGroup>
