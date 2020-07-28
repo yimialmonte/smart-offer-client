@@ -10,7 +10,10 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
+  FormGroup,
+  Label,
 } from 'reactstrap';
+import { Control, LocalForm, Errors } from 'react-redux-form';
 
 class Header extends Component {
   constructor(props) {
@@ -21,6 +24,7 @@ class Header extends Component {
     };
     this.toggleNav = this.toggleNav.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.hanldeSubmit = this.hanldeSubmit.bind(this);
   }
 
   toggleNav() {
@@ -29,6 +33,12 @@ class Header extends Component {
 
   toggleModal() {
     this.setState((prevState) => ({ isModalOpen: !prevState.isModalOpen }));
+  }
+
+  hanldeSubmit(values) {
+    const { name, email, password } = values;
+    alert(`${name} ${email} ${password}`);
+    this.toggleModal();
   }
 
   render() {
@@ -71,7 +81,7 @@ class Header extends Component {
               <Nav className="ml-auto" navbar>
                 <NavItem>
                   <Button outline onClick={this.toggleModal}>
-                    Login
+                    SignUp
                   </Button>
                 </NavItem>
               </Nav>
@@ -80,10 +90,46 @@ class Header extends Component {
         </Navbar>
         <Modal isOpen={isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>
-            <h3>Login</h3>
+            <h3>SignUp</h3>
           </ModalHeader>
           <ModalBody>
-            <p>Body</p>
+            <div className="col-12">
+              <LocalForm onSubmit={(values) => this.hanldeSubmit(values)}>
+                <FormGroup>
+                  <Label htmlFor="name">Name</Label>
+                  <Control.text
+                    model=".name"
+                    name="name"
+                    id="name"
+                    className="form-control"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="email">Email</Label>
+                  <Control.text
+                    model=".email"
+                    name="email"
+                    id="email"
+                    className="form-control"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="password">Password</Label>
+                  <Control
+                    type="password"
+                    model=".password"
+                    name="password"
+                    id="password"
+                    className="form-control"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Button type="submit" color="primary">
+                    Submit
+                  </Button>
+                </FormGroup>
+              </LocalForm>
+            </div>
           </ModalBody>
         </Modal>
       </>
