@@ -14,6 +14,11 @@ import {
   Label,
 } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import {
+  required,
+  minLength,
+  validEmail,
+} from '../../validations/index';
 
 class Header extends Component {
   constructor(props) {
@@ -102,6 +107,17 @@ class Header extends Component {
                     name="name"
                     id="name"
                     className="form-control"
+                    validators={{
+                      required,
+                    }}
+                  />
+                  <Errors
+                    className="text-danger"
+                    model=".name"
+                    show="touched"
+                    messages={{
+                      required: 'The Name is required',
+                    }}
                   />
                 </FormGroup>
                 <FormGroup>
@@ -111,6 +127,19 @@ class Header extends Component {
                     name="email"
                     id="email"
                     className="form-control"
+                    validators={{
+                      required,
+                      validEmail,
+                    }}
+                  />
+                  <Errors
+                    className="text-danger"
+                    model=".email"
+                    show="touched"
+                    messages={{
+                      required: 'The Email is required',
+                      validEmail: 'Provide a valid email',
+                    }}
                   />
                 </FormGroup>
                 <FormGroup>
@@ -121,6 +150,19 @@ class Header extends Component {
                     name="password"
                     id="password"
                     className="form-control"
+                    validators={{
+                      required,
+                      minLength: minLength(6),
+                    }}
+                  />
+                  <Errors
+                    className="text-danger"
+                    model=".password"
+                    show="touched"
+                    messages={{
+                      required: 'The Password is required',
+                      minLength: 'The password mus be greater than six characters',
+                    }}
                   />
                 </FormGroup>
                 <FormGroup>
