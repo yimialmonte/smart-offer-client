@@ -17,10 +17,18 @@ class Header extends Component {
     this.state = {
       isNavOpen: false,
       isModalOpen: false,
+      isLogin: false,
     };
+
     this.toggleNav = this.toggleNav.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.hanldeSubmit = this.hanldeSubmit.bind(this);
+    this.setLogin = this.setLogin.bind(this);
+  }
+
+  setLogin() {
+    this.setState({ isLogin: true });
+    this.setState((prevState) => ({ isModalOpen: !prevState.isModalOpen }));
   }
 
   toggleNav() {
@@ -28,6 +36,7 @@ class Header extends Component {
   }
 
   toggleModal() {
+    this.setState({ isLogin: false });
     this.setState((prevState) => ({ isModalOpen: !prevState.isModalOpen }));
   }
 
@@ -49,7 +58,7 @@ class Header extends Component {
   }
 
   render() {
-    const { isNavOpen, isModalOpen } = this.state;
+    const { isNavOpen, isModalOpen, isLogin } = this.state;
     return (
       <>
         <Navbar style={{ backgroundColor: '#f1f1f1' }} expand="md">
@@ -94,7 +103,7 @@ class Header extends Component {
               </Nav>
               <Nav className="ml-5" navbar>
                 <NavItem>
-                  <Button outline onClick={this.toggleModal}>
+                  <Button outline onClick={this.setLogin}>
                     Login
                   </Button>
                 </NavItem>
@@ -106,7 +115,7 @@ class Header extends Component {
           isModalOpen={isModalOpen}
           toggleModal={this.toggleModal}
           hanldeSubmit={this.hanldeSubmit}
-          title="Login"
+          isLogin={isLogin}
         />
       </>
     );

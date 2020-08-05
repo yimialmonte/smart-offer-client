@@ -19,41 +19,41 @@ class SingUser extends Component {
   }
 
   render() {
-    const {
-      title,
-      isModalOpen,
-      toggleModal,
-      hanldeSubmit,
-    } = this.props;
+    const { isModalOpen, toggleModal, hanldeSubmit, isLogin } = this.props;
+    const fieldName = isLogin ? (
+      ''
+    ) : (
+      <FormGroup>
+        <Label htmlFor="name">Name</Label>
+        <Control.text
+          model=".name"
+          name="name"
+          id="name"
+          className="form-control"
+          validators={{
+            required,
+          }}
+        />
+        <Errors
+          className="text-danger"
+          model=".name"
+          show="touched"
+          messages={{
+            required: 'The Name is required',
+          }}
+        />
+      </FormGroup>
+    );
 
     return (
       <Modal isOpen={isModalOpen} toggle={toggleModal}>
         <ModalHeader toggle={this.toggleModal}>
-          <h3>{title}</h3>
+          <h3>{isLogin ? 'Login' : 'SignUp'}</h3>
         </ModalHeader>
         <ModalBody>
           <div className="col-12">
             <LocalForm onSubmit={(values) => hanldeSubmit(values)}>
-              <FormGroup>
-                <Label htmlFor="name">Name</Label>
-                <Control.text
-                  model=".name"
-                  name="name"
-                  id="name"
-                  className="form-control"
-                  validators={{
-                    required,
-                  }}
-                />
-                <Errors
-                  className="text-danger"
-                  model=".name"
-                  show="touched"
-                  messages={{
-                    required: 'The Name is required',
-                  }}
-                />
-              </FormGroup>
+              {fieldName}
               <FormGroup>
                 <Label htmlFor="email">Email</Label>
                 <Control.text
@@ -114,7 +114,7 @@ class SingUser extends Component {
 }
 
 SingUser.propTypes = {
-  title: PropTypes.string.isRequired,
+  isLogin: PropTypes.bool.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
   hanldeSubmit: PropTypes.func.isRequired,
