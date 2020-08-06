@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {
   Nav,
   Navbar,
@@ -22,7 +21,6 @@ class Header extends Component {
 
     this.toggleNav = this.toggleNav.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
-    this.hanldeSubmit = this.hanldeSubmit.bind(this);
     this.setLogin = this.setLogin.bind(this);
   }
 
@@ -38,23 +36,6 @@ class Header extends Component {
   toggleModal() {
     this.setState({ isLogin: false });
     this.setState((prevState) => ({ isModalOpen: !prevState.isModalOpen }));
-  }
-
-  hanldeSubmit(values) {
-    const { name, email, password } = values;
-    axios
-      .post('http://localhost:3000/v1/users/register', {
-        name,
-        email,
-        password,
-      })
-      .then((response) => {
-        alert(JSON.stringify(response.data));
-        this.toggleModal();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
 
   render() {
@@ -114,7 +95,6 @@ class Header extends Component {
         <SignUser
           isModalOpen={isModalOpen}
           toggleModal={this.toggleModal}
-          hanldeSubmit={this.hanldeSubmit}
           isLogin={isLogin}
         />
       </>

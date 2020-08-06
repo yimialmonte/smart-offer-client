@@ -10,16 +10,63 @@ import {
   Label,
 } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import axios from 'axios';
 import { required, minLength, validEmail } from '../../validations/index';
 
 class SingUser extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.hanldeSubmit = this.hanldeSubmit.bind(this);
+  }
+
+  hanldeSubmit(values) {
+    const { isLogin } = this.props;
+    if (isLogin) this.handleLogin(values);
+    else this.handleSignUp(values);
+  }
+
+  handleSignUp(values) {
+    const { name, email, password } = values;
+    const { toggleModal } = this.props;
+
+    axios
+      .post('http://localhost:3000/v1/users/register', {
+        name,
+        email,
+        password,
+      })
+      .then((response) => {
+        alert(JSON.stringify(response.data));
+        toggleModal();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  handleLogin(values) {
+    const { email, password } = values;
+    const { toggleModal } = this.props;
+
+    axios
+      .post('http://localhost:3000/v1/users/login', {
+        email,
+        password,
+      })
+      .then((response) => {
+        alert(JSON.stringify(response.data));
+        toggleModal();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
-    const { isModalOpen, toggleModal, hanldeSubmit, isLogin } = this.props;
+    const {
+      isModalOpen, toggleModal, isLogin,
+    } = this.props;
     const fieldName = isLogin ? (
       ''
     ) : (
@@ -52,7 +99,7 @@ class SingUser extends Component {
         </ModalHeader>
         <ModalBody>
           <div className="col-12">
-            <LocalForm onSubmit={(values) => hanldeSubmit(values)}>
+            <LocalForm onSubmit={(values) => this.hanldeSubmit(values)}>
               {fieldName}
               <FormGroup>
                 <Label htmlFor="email">Email</Label>
@@ -117,7 +164,6 @@ SingUser.propTypes = {
   isLogin: PropTypes.bool.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  hanldeSubmit: PropTypes.func.isRequired,
 };
 
 export default SingUser;
