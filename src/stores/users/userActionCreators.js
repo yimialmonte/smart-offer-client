@@ -14,6 +14,7 @@ export const postSignIn = (email, password) => (dispatch) => {
     })
     .then((response) => {
       dispatch(signIn(response.data));
+      localStorage.setItem('auth', JSON.stringify(response.data));
     })
     .catch((error) => {
       console.log(error);

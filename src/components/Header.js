@@ -50,7 +50,7 @@ class Header extends Component {
 
   render() {
     const { isNavOpen, isModalOpen, isLogin } = this.state;
-    const { postSignIn } = this.props;
+    const { postSignIn, user } = this.props;
     return (
       <>
         <Navbar style={{ backgroundColor: '#f1f1f1' }} expand="md">
@@ -88,16 +88,26 @@ class Header extends Component {
               </Nav>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <Button outline onClick={this.toggleModal}>
-                    SignUp
-                  </Button>
+                  {user ? (
+                    ''
+                  ) : (
+                    <Button outline onClick={this.toggleModal}>
+                      SignUp
+                    </Button>
+                  )}
                 </NavItem>
               </Nav>
               <Nav className="ml-5" navbar>
                 <NavItem>
-                  <Button outline onClick={this.setLogin}>
-                    Login
-                  </Button>
+                  {user ? (
+                    <Button outline onClick={this.setLogin}>
+                      Logout
+                    </Button>
+                  ) : (
+                    <Button outline onClick={this.setLogin}>
+                      Login
+                    </Button>
+                  )}
                 </NavItem>
               </Nav>
             </Collapse>
