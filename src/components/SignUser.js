@@ -50,18 +50,6 @@ class SingUser extends Component {
     const { toggleModal, postSignIn } = this.props;
     postSignIn(email, password);
     toggleModal();
-    // axios
-    //   .post('http://localhost:3000/v1/users/login', {
-    //     email,
-    //     password,
-    //   })
-    //   .then((response) => {
-    //     alert(JSON.stringify(response.data));
-    //     toggleModal();
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   }
 
   render() {
@@ -132,7 +120,7 @@ class SingUser extends Component {
                   className="form-control"
                   validators={{
                     required,
-                    minLength: minLength(6),
+                    minLength: minLength(8),
                   }}
                 />
                 <Errors

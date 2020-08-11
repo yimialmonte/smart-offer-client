@@ -3,15 +3,20 @@ import * as ActionTypes from '../actionTypes';
 let initialState = null;
 
 try {
-  initialState = JSON.parse(localStorage.getItem('auth'));
+  initialState = { token: JSON.parse(localStorage.getItem('auth')) };
 } catch (error) {
-  initialState = { errors: null, user: null };
+  initialState = { token: null };
 }
 
 const User = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.USER_SIGNIN:
-      return { ...state, errors: null, user: action.payload };
+      return { ...state, token: action.payload };
+    case ActionTypes.USER_LOGOUT:
+      return {
+        ...state,
+        token: null,
+      };
     default:
       return state;
   }

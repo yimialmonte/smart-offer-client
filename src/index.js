@@ -8,9 +8,7 @@ const store = configureStore();
 
 const App = () => (
   <Provider store={store}>
-    <div>
-      <Header />
-    </div>
+    <Header />
   </Provider>
 );
 

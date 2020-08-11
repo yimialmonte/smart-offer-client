@@ -10,7 +10,7 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import SignUser from './SignUser';
-import { postSignIn } from '../stores/users/userActionCreators';
+import { postSignIn, postLogout } from '../stores/users/userActionCreators';
 
 const mapStateToProps = (state) => ({
   user: state.user,
@@ -18,6 +18,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   postSignIn: (email, password) => dispatch(postSignIn(email, password)),
+  postLogout: (token) => dispatch(postLogout(token)),
 });
 
 class Header extends Component {
@@ -32,11 +33,19 @@ class Header extends Component {
     this.toggleNav = this.toggleNav.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.setLogin = this.setLogin.bind(this);
+    this.userLogout = this.userLogout.bind(this);
   }
 
   setLogin() {
     this.setState({ isLogin: true });
-    this.setState((prevState) => ({ isModalOpen: !prevState.isModalOpen }));
+    this.setState((prevState) => ({
+      isModalOpen: !prevState.isModalOpen,
+    }));
+  }
+
+  userLogout() {
+    const { postLogout, user } = this.props;
+    postLogout(user.token);
   }
 
   toggleNav() {
@@ -88,7 +97,7 @@ class Header extends Component {
               </Nav>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  {user ? (
+                  {user.token ? (
                     ''
                   ) : (
                     <Button outline onClick={this.toggleModal}>
@@ -99,8 +108,8 @@ class Header extends Component {
               </Nav>
               <Nav className="ml-5" navbar>
                 <NavItem>
-                  {user ? (
-                    <Button outline onClick={this.setLogin}>
+                  {user.token ? (
+                    <Button outline onClick={this.userLogout}>
                       Logout
                     </Button>
                   ) : (
