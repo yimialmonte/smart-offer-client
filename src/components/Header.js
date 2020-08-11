@@ -8,7 +8,17 @@ import {
   Collapse,
   Button,
 } from 'reactstrap';
+import { connect } from 'react-redux';
 import SignUser from './SignUser';
+import { postSignIn } from '../stores/users/userActionCreators';
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  postSignIn: (email, password) => dispatch(postSignIn(email, password)),
+});
 
 class Header extends Component {
   constructor(props) {
@@ -40,6 +50,7 @@ class Header extends Component {
 
   render() {
     const { isNavOpen, isModalOpen, isLogin } = this.state;
+    const { postSignIn } = this.props;
     return (
       <>
         <Navbar style={{ backgroundColor: '#f1f1f1' }} expand="md">
@@ -96,10 +107,11 @@ class Header extends Component {
           isModalOpen={isModalOpen}
           toggleModal={this.toggleModal}
           isLogin={isLogin}
+          postSignIn={postSignIn}
         />
       </>
     );
   }
 }
 
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -47,26 +47,25 @@ class SingUser extends Component {
 
   handleLogin(values) {
     const { email, password } = values;
-    const { toggleModal } = this.props;
-
-    axios
-      .post('http://localhost:3000/v1/users/login', {
-        email,
-        password,
-      })
-      .then((response) => {
-        alert(JSON.stringify(response.data));
-        toggleModal();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const { toggleModal, postSignIn } = this.props;
+    postSignIn(email, password);
+    toggleModal();
+    // axios
+    //   .post('http://localhost:3000/v1/users/login', {
+    //     email,
+    //     password,
+    //   })
+    //   .then((response) => {
+    //     alert(JSON.stringify(response.data));
+    //     toggleModal();
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }
 
   render() {
-    const {
-      isModalOpen, toggleModal, isLogin,
-    } = this.props;
+    const { isModalOpen, toggleModal, isLogin } = this.props;
     const fieldName = isLogin ? (
       ''
     ) : (
@@ -95,7 +94,7 @@ class SingUser extends Component {
     return (
       <Modal isOpen={isModalOpen} toggle={toggleModal}>
         <ModalHeader toggle={this.toggleModal}>
-          <h3>{isLogin ? 'Login' : 'SignUp'}</h3>
+          <p>{isLogin ? 'Login' : 'SignUp'}</p>
         </ModalHeader>
         <ModalBody>
           <div className="col-12">
@@ -164,6 +163,7 @@ SingUser.propTypes = {
   isLogin: PropTypes.bool.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
+  postSignIn: PropTypes.func.isRequired,
 };
 
 export default SingUser;

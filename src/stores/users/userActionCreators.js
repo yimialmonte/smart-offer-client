@@ -13,7 +13,7 @@ export const postSignIn = (email, password) => (dispatch) => {
       password,
     })
     .then((response) => {
-      dispatch(signIn(response));
+      dispatch(signIn(response.data));
     })
     .catch((error) => {
       console.log(error);
