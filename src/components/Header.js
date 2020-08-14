@@ -12,15 +12,6 @@ import { connect } from 'react-redux';
 import SignUser from './SignUser';
 import { postSignIn, postLogout } from '../stores/users/userActionCreators';
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  postSignIn: (email, password) => dispatch(postSignIn(email, password)),
-  postLogout: (token) => dispatch(postLogout(token)),
-});
-
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -37,9 +28,9 @@ class Header extends Component {
   }
 
   setLogin() {
-    this.setState({ isLogin: true });
     this.setState((prevState) => ({
       isModalOpen: !prevState.isModalOpen,
+      isLogin: true,
     }));
   }
 
@@ -53,8 +44,10 @@ class Header extends Component {
   }
 
   toggleModal() {
-    this.setState({ isLogin: false });
-    this.setState((prevState) => ({ isModalOpen: !prevState.isModalOpen }));
+    this.setState((prevState) => ({
+      isModalOpen: !prevState.isModalOpen,
+      isLogin: false,
+    }));
   }
 
   render() {
@@ -132,5 +125,14 @@ class Header extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  postSignIn: (email, password) => dispatch(postSignIn(email, password)),
+  postLogout: (token) => dispatch(postLogout(token)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

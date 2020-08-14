@@ -17,10 +17,10 @@ class SingUser extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.hanldeSubmit = this.hanldeSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  hanldeSubmit(values) {
+  handleSubmit(values) {
     const { isLogin } = this.props;
     if (isLogin) this.handleLogin(values);
     else this.handleSignUp(values);
@@ -86,7 +86,7 @@ class SingUser extends Component {
         </ModalHeader>
         <ModalBody>
           <div className="col-12">
-            <LocalForm onSubmit={(values) => this.hanldeSubmit(values)}>
+            <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
               {fieldName}
               <FormGroup>
                 <Label htmlFor="email">Email</Label>
