@@ -1,5 +1,5 @@
-import axios from 'axios';
 import * as ActionTypes from '../actionTypes';
+import http from '../../helper/httpRequest';
 
 export const signIn = (user) => ({
   type: ActionTypes.USER_SIGNIN,
@@ -12,36 +12,29 @@ export const userLogout = (user) => ({
 });
 
 export const postSignIn = (email, password) => (dispatch) => {
-  axios
-    .post('http://localhost:3000/v1/users/login', {
-      email,
-      password,
-    })
-    .then((response) => {
+  http.postRequest(
+    'users/login',
+    { email, password },
+    {},
+    (response) => {
       localStorage.setItem('auth', JSON.stringify(response.data));
       dispatch(signIn(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    },
+    (error) => console.log(error),
+  );
 };
 
 export const postLogout = ({ token }) => (dispatch) => {
-  axios
-    .post(
-      'http://localhost:3000/v1/users/logout',
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-    .then((response) => {
+  const header = { headers: { Authorization: `Bearer ${token}` } };
+
+  http.postRequest(
+    'users/logout',
+    {},
+    header,
+    (response) => {
       dispatch(userLogout(response.data));
       localStorage.removeItem('auth');
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    },
+    (error) => console.log(error),
+  );
 };

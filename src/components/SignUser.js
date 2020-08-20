@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Button,
   Modal,
@@ -10,8 +9,8 @@ import {
   Label,
 } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import axios from 'axios';
 import { required, minLength, validEmail } from '../../validations/index';
+import http from '../helper/httpRequest';
 
 class SingUser extends Component {
   constructor(props) {
@@ -27,22 +26,11 @@ class SingUser extends Component {
   }
 
   handleSignUp(values) {
-    const { name, email, password } = values;
     const { toggleModal } = this.props;
-
-    axios
-      .post('http://localhost:3000/v1/users/register', {
-        name,
-        email,
-        password,
-      })
-      .then((response) => {
-        alert(JSON.stringify(response.data));
-        toggleModal();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    http.postRequest('users/register', values, {}, (response) => {
+      alert(JSON.stringify(response.data));
+      toggleModal();
+    }, (error) => console.log(error));
   }
 
   handleLogin(values) {
