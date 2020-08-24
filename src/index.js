@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import Header from './components/Header';
+import configureStore from './stores/configureStore';
+
+const store = configureStore();
 
 const App = () => (
-  <div>
+  <Provider store={store}>
     <Header />
-  </div>
+  </Provider>
 );
 
 ReactDOM.render(<App />, document.querySelector('#root'));
