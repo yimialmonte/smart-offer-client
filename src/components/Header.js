@@ -9,9 +9,9 @@ import {
   Button,
 } from 'reactstrap';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import SignUser from './SignUser';
 import { postSignIn, postLogout } from '../stores/users/userActionCreators';
-import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
   constructor(props) {
