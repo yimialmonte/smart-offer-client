@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 import SignUser from './SignUser';
 import { postSignIn, postLogout } from '../stores/users/userActionCreators';
+import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
   constructor(props) {
@@ -68,9 +69,7 @@ class Header extends Component {
             <Collapse navbar isOpen={isNavOpen}>
               <Nav navbar>
                 <NavItem>
-                  <a href="/" className="nav-link">
-                    Home
-                  </a>
+                  <NavLink exact to="/" className="nav-item nav-link">Home</NavLink>
                 </NavItem>
                 <NavItem>
                   <a href="/" className="nav-link">
@@ -86,6 +85,9 @@ class Header extends Component {
                   <a href="/" className="nav-link">
                     Publish
                   </a>
+                </NavItem>
+                <NavItem>
+                  <NavLink exact to="/about" className="nav-item nav-link">About</NavLink>
                 </NavItem>
               </Nav>
               <Nav className="ml-auto" navbar>
