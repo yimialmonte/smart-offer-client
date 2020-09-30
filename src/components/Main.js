@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AppRouter from './AppRouter';
 
 class Main extends Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class Main extends Component {
 
   render() {
     return (
-      <div>Main Component</div>
+      <AppRouter />
     );
   }
 }
