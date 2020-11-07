@@ -14,7 +14,12 @@ function OfferDetails({ offer }) {
   return (
     <Card className="my-5 p-3 rounded">
       <Link to={`/offer/${offer._id}`}>
-        <CardImg width="450px" top src={`${offer.image}`} alt="Card image cap" />
+        <CardImg
+          width="450px"
+          top
+          src={`${offer.image}`}
+          alt="Card image cap"
+        />
       </Link>
       <CardBody>
         <CardTitle tag="h5">{offer.name}</CardTitle>
@@ -22,8 +27,9 @@ function OfferDetails({ offer }) {
           {offer.brand}
         </CardSubtitle>
         <CardText>
-         {offer.description}
+          <big className="text-danger">Discount: -{offer.percentDiscount}%</big>
         </CardText>
+        <CardText>{offer.description}</CardText>
         <Button>Buy Now</Button>
       </CardBody>
     </Card>

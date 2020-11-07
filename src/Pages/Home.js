@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import getOffers from '../stores/offers/offerActions';
 import Offers from '../components/Offers';
+import Loader from '../components/Loader';
 
 class Home extends Component {
   constructor(props) {
@@ -16,13 +17,11 @@ class Home extends Component {
   }
 
   render() {
-    const { loading, offers } = this.props;
+    const { offers: {products, loading} } = this.props;
     return (
-      <>
-        {loading ? (<h1>Home Page</h1>) : (
-          <Offers offers={offers.offers} />
-        )}
-      </>
+      <div>
+        {loading ? <Loader /> : <Offers offers={products} />}
+      </div>
     );
   }
 }
