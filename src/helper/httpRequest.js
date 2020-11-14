@@ -13,6 +13,18 @@ const postRequest = (uri, data, header, callSuccess, callFail) => {
     });
 };
 
+const getRequest = (uri, callSuccess, callFail) => {
+  axios
+    .get(baseUrl + uri)
+    .then((response) => {
+      callSuccess(response);
+    })
+    .catch((error) => {
+      callFail(error);
+    });
+};
+
 export default {
   postRequest,
+  getRequest,
 };
